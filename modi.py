@@ -38,14 +38,14 @@ class Modi:
                     attr_of_item_node = (item.attrib)
                     if i[17] == attr_of_item_node.get("Name"):
                         RK7Query = ET.Element("RK7Query")
-                        RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData", RefName="classificatorgroups")
+                        RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData", RefName="modifiers")
                         Items = ET.SubElement(RK7Command, "Items")
                         ET.SubElement(Items, "Item", attrib={ "MainParentIdent":attr_of_item_node.get("GUIDString"),
                                                              "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                              "Code": i[2], "Name": i[1], "AltName": i[3],
                                                              "Status": "rsActive", "ExtCode": i[2]}).text
                         tree = ET.ElementTree(RK7Query)
-                        print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                        #print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                         xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
                         ip_string = 'https://' + "192.168.45.49" + ":" + "16662" + '/rk7api/v0/xmlinterface.xml'
                         urllib3.disable_warnings()
