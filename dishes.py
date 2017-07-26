@@ -2,8 +2,13 @@ import xml.etree.cElementTree as ET
 import requests
 import uuid
 import urllib3
+import logging
 
 
+
+FORMAT = '%(asctime)s : LOG : %(levelname)s - %(message)s'
+logger_my_functions = logging.getLogger()
+logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 RK7Query = ET.Element("RK7Query")
 RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData", RefName="MenuItems")
 Items = ET.SubElement(RK7Command, "Items")

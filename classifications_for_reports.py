@@ -6,34 +6,32 @@ import urllib3
 import logging
 
 
-
 FORMAT = '%(asctime)s : LOG : %(levelname)s - %(message)s'
 logger_my_functions = logging.getLogger()
 logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 
-class MenuGroup:
+
+class ReportsClassification:
     def __init__(self):
         pass
 
-    def menu_group_creation(self):
+    def classification_creation(self):
         with open('carte_menu.csv', newline='', ) as csvfile:
             reader = csv.reader(csvfile, delimiter=';')
             l_ist = list(reader)
 
-        l_ist_menu_group = []
+        l_ist_reports_classification = []
         ok_count = 0
         error_count = 0
+        classification_id = 1024
         for i in l_ist:
-            if i[17] not in l_ist_menu_group and i[17] is not None and i[17] != " " and i[17] != "":
+            if i[8] not in l_ist_reports_classification and i[8] is not None and i[8] != " " and i[8] != "":
                 RK7Query = ET.Element("RK7Query")
-                RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData", RefName="CATEGLIST")
+                RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData", RefName="classificatorgroups")
                 Items = ET.SubElement(RK7Command, "Items")
-                ET.SubElement(Items, "Item", attrib={"GUIDString":'{' + str(uuid.uuid4()) + '}',
-                                             "Code":"1000" + i[16], "Name":i[17], "AltName":i[17], "Status":"rsActive",
-                                             "ExtCode":"1000" + i[16]}).text
-
+                ET.SubElement(Items, "Item", attrib={ "Ident":str(classification_id),"GUIDString": '{' + str(uuid.uuid4()) + '}', "Name": i[8], "AltName": i[8], "Status": "rsActive",}).text
                 tree = ET.ElementTree(RK7Query)
-                #print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                 xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
                 ip_string = 'https://' + "192.168.45.49" + ":" + "16662" + '/rk7api/v0/xmlinterface.xml'
                 urllib3.disable_warnings()
@@ -46,6 +44,8 @@ class MenuGroup:
                         ok_count += 1
                     else:
                         error_count += 1
-                l_ist_menu_group.append(i[17])
-        print("ok_count: " + str(ok_count))
-        print("error_count: " + str(error_count))
+                l_ist_reports_classification.append(i[8])
+                classification_id = int(classification_id) + 256
+
+        print("ok_count_class: " + str(ok_count))
+        print("error_count_class: " + str(error_count))

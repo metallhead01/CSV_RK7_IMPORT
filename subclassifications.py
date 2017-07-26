@@ -46,7 +46,7 @@ class subClassification:
                             ip_string = 'https://' + "192.168.45.49" + ":" + "16662" + '/rk7api/v0/xmlinterface.xml'
                             urllib3.disable_warnings()
                             response_GUID = requests.get(ip_string, data=xml_send_string_create_item, auth=("UCS", "1"), verify=False)
-                            print(response_GUID.content)
+                            logger_my_functions.debug(response_GUID.content)
                             parsed_response = ET.fromstring(response_GUID.content)
                             for item in parsed_response.findall("."):
                                 attr_of_item_node = item.attrib
@@ -58,6 +58,6 @@ class subClassification:
 
         print("ok_count: " + str(ok_count))
         print("error_count: " + str(error_count))
-        
+
 create = subClassification()
 create.sub_classification_creation()
