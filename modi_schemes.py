@@ -11,8 +11,11 @@ logger_my_functions = logging.getLogger()
 logging.basicConfig(level=logging.DEBUG, format=FORMAT)
 
 class ModiSchemes:
-    def __init__(self):
-        pass
+    def __init__(self, ip_address, port, user_name, password):
+        self.ip_address = ip_address
+        self.port = port
+        self.user_name = user_name
+        self.password = password
 
     def modi_schemes(self):
         with open('modi_separate.csv', newline='', ) as csvfile:
@@ -34,9 +37,9 @@ class ModiSchemes:
                 tree = ET.ElementTree(RK7Query)
                 #print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                 xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
-                ip_string = 'https://' + "192.168.45.49" + ":" + "16662" + '/rk7api/v0/xmlinterface.xml'
+                ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
                 urllib3.disable_warnings()
-                response_GUID = requests.get(ip_string, data=xml_send_string_create_item, auth=("UCS", "1"), verify=False)
+                response_GUID = requests.get(ip_string, data=xml_send_string_create_item, auth=(self.user_name, self.password), verify=False)
                 logger_my_functions.debug(response_GUID.content)
                 parsed_response = ET.fromstring(response_GUID.content)
                 for item in parsed_response.findall("."):
