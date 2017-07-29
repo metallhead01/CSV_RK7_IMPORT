@@ -1,4 +1,4 @@
-import menu_group
+import menu_group_ver_2
 import service_print_classification
 import classifications_for_reports
 import cathegories_in_classifications_for_reports_ver_2
@@ -12,32 +12,34 @@ ip_address = "192.168.45.49"
 port = "16662"
 user_name = "UCS"
 password = "1"
+log_level = "info"
+log_level_num = 20
 
 # Создаем группы меню
-create_menu_groups = menu_group.MenuGroup(ip_address, port, user_name, password)
+create_menu_groups = menu_group_ver_2.MenuGroup(ip_address, port, user_name, password, log_level, log_level_num)
 create_menu_groups.menu_group_creation()
 # Создаем классификацию для сервис печати
-create_classification_for_service_print = service_print_classification.ServicePrintClassification(service_print_GUID, ip_address, port, user_name, password)
+create_classification_for_service_print = service_print_classification.ServicePrintClassification(service_print_GUID, ip_address, port, user_name, password, log_level, log_level_num)
 create_classification_for_service_print.classification_creation()
 # Создаем классификацию для отчетов
-create_classifications_for_reports = classifications_for_reports.ReportsClassification(ip_address, port, user_name, password)
+create_classifications_for_reports = classifications_for_reports.ReportsClassification(ip_address, port, user_name, password, log_level, log_level_num)
 create_classifications_for_reports.classification_creation()
 # Создаем категории в классификациях для отчетов
 #create_cathegories = cathegories_in_classifications_for_reports.CathegoriesInClassifications(ip_address, port, user_name, password)
 #create_cathegories.cathegory_in_classification_creation()
 # Создаем классификации для отчетов
-create_classifications_for_reports = cathegories_in_classifications_for_reports_ver_2.CathegoriesInClassifications(ip_address, port, user_name, password)
+create_classifications_for_reports = cathegories_in_classifications_for_reports_ver_2.CathegoriesInClassifications(ip_address, port, user_name, password, log_level, log_level_num)
 create_classifications_for_reports.cathegory_in_classification_creation()
 
 # Создаем схемы модификаторов
-create_modi_schemes = modi_schemes.ModiSchemes(ip_address, port, user_name, password)
+create_modi_schemes = modi_schemes.ModiSchemes(ip_address, port, user_name, password, log_level, log_level_num)
 create_modi_schemes.modi_schemes()
 # Создаем группы модификаторов
-create_modi_groups = modi_groups.ModiGroups(ip_address, port, user_name, password)
+create_modi_groups = modi_groups.ModiGroups(ip_address, port, user_name, password, log_level, log_level_num)
 create_modi_groups.modi_groups()
 # Создаем модификаторы
-create_modi = modi.Modi(ip_address, port, user_name, password)
+create_modi = modi.Modi(ip_address, port, user_name, password, log_level, log_level_num)
 create_modi.modi_creation()
 # Создаем блюда
-dishes = dishes.Dishes(ip_address, port, user_name, password)
+dishes = dishes.Dishes(ip_address, port, user_name, password, log_level, log_level_num)
 dishes.dish_creation()
