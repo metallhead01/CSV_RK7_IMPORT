@@ -55,14 +55,14 @@ class ServicePrintClassification:
                 l_ist_classification.append(i[8])
         print("ok_count: " + str(ok_count))
         print("error_count: " + str(error_count))
-
+"""
 service_print_GUID = "{71B5617A-00D7-48EE-91A4-4A82C4F62642}"
-ip_address = "192.168.88.150"
+ip_address = "192.168.45.49"
 port = "16662"
 user_name = "UCS"
 password = "1"
 log_level = "info"
 log_level_num = 10
-
 create = ServicePrintClassification(service_print_GUID, ip_address, port, user_name, password, log_level, log_level_num)
 create.classification_creation()
+"""
