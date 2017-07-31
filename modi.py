@@ -6,19 +6,24 @@ import urllib3
 import logging
 
 
-FORMAT = '%(asctime)s : LOG : %(levelname)s - %(message)s'
-logger_my_functions = logging.getLogger()
-logging.basicConfig(level=logging.DEBUG, format=FORMAT)
+
 
 
 class Modi:
-    def __init__(self, ip_address, port, user_name, password):
+    def __init__(self, ip_address, port, user_name, password, log_level, log_level_num):
         self.ip_address = ip_address
         self.port = port
         self.user_name = user_name
         self.password = password
+        self.log_level = log_level
+        self.log_level_num = log_level_num
 
     def modi_creation(self):
+        FORMAT = '%(asctime)s : LOG : %(levelname)s - %(message)s'
+        logger_my_functions = logging.getLogger()
+        numeric_level = getattr(logger_my_functions, self.log_level.upper(), self.log_level_num)
+        logging.basicConfig(level=numeric_level, format=FORMAT)
+
         with open('modi_separate.csv', newline='', ) as csvfile:
             reader = csv.reader(csvfile, delimiter=';')
             l_ist = list(reader)

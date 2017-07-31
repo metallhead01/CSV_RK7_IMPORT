@@ -6,20 +6,23 @@ import urllib3
 import logging
 
 
-FORMAT = '%(asctime)s : LOG : %(levelname)s - %(message)s'
-logger_my_functions = logging.getLogger()
-logging.basicConfig(level=logging.INFO, format=FORMAT)
-
-
 class ServicePrintClassification:
-    def __init__(self, parent_GUID, ip_address, port, user_name, password):
+    def __init__(self, parent_GUID, ip_address, port, user_name, password, log_level, log_level_num):
         self.parent_GUID = parent_GUID
         self.ip_address = ip_address
         self.port = port
         self.user_name = user_name
         self.password = password
+        self.log_level = log_level
+        self.log_level_num = log_level_num
 
     def classification_creation(self):
+
+        FORMAT = '%(asctime)s : LOG : %(levelname)s - %(message)s'
+        logger_my_functions = logging.getLogger()
+        numeric_level = getattr(logger_my_functions, self.log_level.upper(), self.log_level_num)
+        logging.basicConfig(level=numeric_level, format=FORMAT)
+
         with open('carte_menu.csv', newline='', ) as csvfile:
             reader = csv.reader(csvfile, delimiter=';')
             l_ist = list(reader)
@@ -52,3 +55,14 @@ class ServicePrintClassification:
                 l_ist_classification.append(i[8])
         print("ok_count: " + str(ok_count))
         print("error_count: " + str(error_count))
+
+service_print_GUID = "{71B5617A-00D7-48EE-91A4-4A82C4F62642}"
+ip_address = "192.168.88.150"
+port = "16662"
+user_name = "UCS"
+password = "1"
+log_level = "info"
+log_level_num = 10
+
+create = ServicePrintClassification(service_print_GUID, ip_address, port, user_name, password, log_level, log_level_num)
+create.classification_creation()
