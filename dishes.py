@@ -90,11 +90,11 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                              "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                              "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                             "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                             "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                              "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
                                                              "CLASSIFICATORGROUPS-" + classif_1[0][4] : classif_1[0][3],
                                                              "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                             "genKIT_NAME": i[21]}).text
+                                                             "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -118,10 +118,10 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                                  "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
                                                                  "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -145,9 +145,9 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                                  "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -171,8 +171,8 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -214,11 +214,11 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                              "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                              "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                             "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                             "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                              "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
                                                              "CLASSIFICATORGROUPS-" + classif_1[0][4] : classif_1[0][3],
                                                              "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                             "genKIT_NAME": i[21]}).text
+                                                             "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -242,10 +242,10 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                                  "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
                                                                  "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -269,9 +269,9 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                                  "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -295,8 +295,8 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -341,11 +341,11 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                              "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                              "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                             "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                             "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                              "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
                                                              "CLASSIFICATORGROUPS-" + classif_1[0][4] : classif_1[0][3],
                                                              "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                             "genKIT_NAME": i[21]}).text
+                                                             "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -369,10 +369,10 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                                  "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
                                                                  "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -396,9 +396,9 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
                                                                  "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
@@ -422,8 +422,8 @@ class Dishes:
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
-                                                                 "genKIT_NAME": i[21]}).text
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4]+"000",
+                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                             cur.close()
