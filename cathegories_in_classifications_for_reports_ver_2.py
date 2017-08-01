@@ -31,8 +31,9 @@ class CathegoriesInClassifications:
         urllib3.disable_warnings()
         response = requests.get(ip_string, data=xml_classifications_create_string, auth=(self.user_name, self.password),verify=False)
         logging.debug(response.content)
-
-        def classif_create(a, b, class_id):
+        #ok_count = 0
+        #error_count = 0
+        def classif_create(a, b, g, class_id):
             ok_count = 0
             error_count = 0
             l_ist_cat_in_class = []
@@ -41,14 +42,14 @@ class CathegoriesInClassifications:
                 l_ist = list(reader)
 
             for i in l_ist:
-                if i[a] not in l_ist_cat_in_class and i[a] is not None and i[a] != " " and i[a] != "":
+                if i[b] not in l_ist_cat_in_class and i[b] is not None and i[b] != " " and i[b] != "":
                     RK7Query = ET.Element("RK7Query")
                     RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData", RefName="classificatorgroups")
                     Items = ET.SubElement(RK7Command, "Items")
                     ET.SubElement(Items, "Item", attrib={ "MainParentIdent":class_id,
                                                          "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                         "Code": "2002" + i[a], "Name": i[b], "AltName": i[b],
-                                                         "Status": "rsActive", "ExtCode": "2002" + i[a]}).text
+                                                         "Code": "200" + g + i[a], "Name": i[b], "AltName": i[b],
+                                                         "Status": "rsActive", "ExtCode": "200" + g + i[a]}).text
                     tree = ET.ElementTree(RK7Query)
                     # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
                     xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
@@ -63,14 +64,12 @@ class CathegoriesInClassifications:
                             ok_count += 1
                         else:
                             error_count += 1
-                l_ist_cat_in_class.append(i[a])
-            return ok_count, error_count
+                l_ist_cat_in_class.append(i[b])
+            print("ok_count: " + str(ok_count))
+            print("error_count: " + str(error_count))
 
-        classif_create(7, 8, "23040")
-        classif_create(9, 10, "23296")
-        #print("ok_count: " + str(ok_count))
-        #print("error_count: " + str(error_count))
-
+        classif_create(7, 8, "1", "23040")
+        classif_create(9, 10, "2", "23296")
 """
 ip_address = "192.168.45.49"
 port = "16662"

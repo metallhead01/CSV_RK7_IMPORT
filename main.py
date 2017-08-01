@@ -13,7 +13,7 @@ port = "16662"
 user_name = "UCS"
 password = "1"
 log_level = "info"
-log_level_num = 10
+log_level_num = 20
 
 # Создаем группы меню_ver_2
 create_menu_groups = menu_group_ver_2.MenuGroup(ip_address, port, user_name, password, log_level, log_level_num)

@@ -72,7 +72,9 @@ class Dishes:
                     cur_2 = db.cursor()
                     cur_3 = db.cursor()
                     cur.execute('SELECT * FROM CATEGLIST WHERE "Name"=(?)', (i[26],))
-                    cur_1.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?)', (i[8],))
+                    #Famile
+                    cur_1.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?) AND "MainParentIdent" != "512"', (i[8],))
+                    #S famile
                     cur_2.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?)', (i[10],))
                     cur_3.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?) AND "MainParentIdent" = "512"'
                                   , (i[8],))
@@ -84,67 +86,14 @@ class Dishes:
                         RK7Query = ET.Element("RK7Query")
                         RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData", RefName="MENUITEMS")
                         Items = ET.SubElement(RK7Command, "Items")
-                        try:
-                            ET.SubElement(Items, "Item", attrib={ "MainParentIdent":catheg[0][2],
-                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                                 "Code":i[2],"Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3":i[4],
-                                                                  "CLASSIFICATORGROUPS-" + classif[0][4]:classif[0][3],
-                                                                  "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
-                                                                  "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                                  "genKIT_NAME":i[21]}).text
-                            tree = ET.ElementTree(RK7Query)
-                            #print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
-                            cur.close()
-                            cur_1.close()
-                            cur_2.close()
-                            cur_3.close()
-                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
-                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
-                            urllib3.disable_warnings()
-                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item, auth=(self.user_name, self.password), verify=False)
-                            logger_my_functions.debug(response_GUID.content)
-                            parsed_response = ET.fromstring(response_GUID.content)
-                            for item in parsed_response.findall("."):
-                                attr_of_item_node = item.attrib
-                                if attr_of_item_node.get("Status") == "Ok":
-                                    ok_count += 1
-                                else:
-                                    error_count += 1
-                        except:
-                            pass
-                    l_ist_dishes.append(i[1])
-                elif [25] is not None and i[25] != " " and i[25] != "":
-                    cur = db.cursor()
-                    cur_1 = db.cursor()
-                    cur_2 = db.cursor()
-                    cur_3 = db.cursor()
-                    cur.execute('SELECT * FROM CATEGLIST WHERE "Name"=(?)', (i[25],))
-                    cur_1.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?)', (i[8],))
-                    cur_2.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?)', (i[10],))
-                    cur_3.execute(
-                        'SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?) AND "MainParentIdent" = "512"'
-                        , (i[8],))
-                    catheg = cur.fetchall()
-                    classif = cur_1.fetchall()
-                    classif_1 = cur_2.fetchall()
-                    service = cur_3.fetchall()
-                    if i[25] == catheg[0][1]:
-                        RK7Query = ET.Element("RK7Query")
-                        RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData",
-                                                   RefName="MENUITEMS")
-                        Items = ET.SubElement(RK7Command, "Items")
-                        try:
+                        if i[8] != " " and i[10] != " ":
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                              "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                              "Code": i[2], "Name": i[1], "AltName": i[3],
                                                              "Status": "rsActive", "PRICETYPES-3": i[4],
-                                                             "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][
-                                                                 3],
-                                                             "CLASSIFICATORGROUPS-" + classif_1[0][4]:
-                                                                 classif_1[0][3],
-                                                             "CLASSIFICATORGROUPS-" + service[0][4]: service[0][
-                                                                 3],
+                                                             "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
+                                                             "CLASSIFICATORGROUPS-" + classif_1[0][4] : classif_1[0][3],
+                                                             "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
                                                              "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
@@ -165,40 +114,13 @@ class Dishes:
                                     ok_count += 1
                                 else:
                                     error_count += 1
-                        except:
-                            pass
-                    l_ist_dishes.append(i[1])
-                elif [24] is not None and i[24] != " " and i[24] != "":
-                    cur = db.cursor()
-                    cur_1 = db.cursor()
-                    cur_2 = db.cursor()
-                    cur_3 = db.cursor()
-                    cur.execute('SELECT * FROM CATEGLIST WHERE "Name"=(?)', (i[24],))
-                    cur_1.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?)', (i[8],))
-                    cur_2.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?)', (i[10],))
-                    cur_3.execute(
-                        'SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?) AND "MainParentIdent" = "512"'
-                        , (i[8],))
-                    catheg = cur.fetchall()
-                    classif = cur_1.fetchall()
-                    classif_1 = cur_2.fetchall()
-                    service = cur_3.fetchall()
-                    if i[24] == catheg[0][1]:
-                        RK7Query = ET.Element("RK7Query")
-                        RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData",
-                                                   RefName="MENUITEMS")
-                        Items = ET.SubElement(RK7Command, "Items")
-                        try:
+                        elif i[8] != " " and i[10] == " ":
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
                                                                  "Status": "rsActive", "PRICETYPES-3": i[4],
-                                                                 "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][
-                                                                     3],
-                                                                 "CLASSIFICATORGROUPS-" + classif_1[0][4]:
-                                                                     classif_1[0][3],
-                                                                 "CLASSIFICATORGROUPS-" + service[0][4]: service[0][
-                                                                     3],
+                                                                 "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
+                                                                 "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
                                                                  "genKIT_NAME": i[21]}).text
                             tree = ET.ElementTree(RK7Query)
                             # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
@@ -219,9 +141,312 @@ class Dishes:
                                     ok_count += 1
                                 else:
                                     error_count += 1
-                        except:
-                            pass
-                l_ist_dishes.append(i[1])
+                        elif i[8] == " " and i[10] != " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
+                                                                 "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                        elif i[8] == " " and i[10] == " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                    l_ist_dishes.append(i[1])
+                elif [25] is not None and i[25] != " " and i[25] != "":
+                    cur = db.cursor()
+                    cur_1 = db.cursor()
+                    cur_2 = db.cursor()
+                    cur_3 = db.cursor()
+                    cur.execute('SELECT * FROM CATEGLIST WHERE "Name"=(?)', (i[25],))
+                    cur_1.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?) AND "MainParentIdent" != "512"', (i[8],))
+                    cur_2.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?)', (i[10],))
+                    cur_3.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?) AND "MainParentIdent" = "512"', (i[8],))
+                    catheg = cur.fetchall()
+                    classif = cur_1.fetchall()
+                    classif_1 = cur_2.fetchall()
+                    service = cur_3.fetchall()
+                    if i[25] == catheg[0][1]:
+                        RK7Query = ET.Element("RK7Query")
+                        RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData", RefName="MENUITEMS")
+                        Items = ET.SubElement(RK7Command, "Items")
+                        if i[8] != " " and i[10] != " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                             "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                             "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                             "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                             "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
+                                                             "CLASSIFICATORGROUPS-" + classif_1[0][4] : classif_1[0][3],
+                                                             "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
+                                                             "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                        elif i[8] != " " and i[10] == " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
+                                                                 "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
+                                                                 "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                        elif i[8] == " " and i[10] != " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
+                                                                 "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                        elif i[8] == " " and i[10] == " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                    l_ist_dishes.append(i[1])
+                elif [24] is not None and i[24] != " " and i[24] != "":
+                    cur = db.cursor()
+                    cur_1 = db.cursor()
+                    cur_2 = db.cursor()
+                    cur_3 = db.cursor()
+                    cur.execute('SELECT * FROM CATEGLIST WHERE "Name"=(?)', (i[24],))
+                    cur_1.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?) AND "MainParentIdent" != "512"', (i[8],))
+                    cur_2.execute('SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?)', (i[10],))
+                    cur_3.execute(
+                        'SELECT * FROM CLASSIFICATORGROUPS WHERE "Name"=(?) AND "MainParentIdent" = "512"'
+                        , (i[8],))
+                    catheg = cur.fetchall()
+                    classif = cur_1.fetchall()
+                    classif_1 = cur_2.fetchall()
+                    service = cur_3.fetchall()
+                    if i[24] == catheg[0][1]:
+                        RK7Query = ET.Element("RK7Query")
+                        RK7Command = ET.SubElement(RK7Query, "RK7Command", CMD="SetRefData",
+                                                   RefName="MENUITEMS")
+                        Items = ET.SubElement(RK7Command, "Items")
+                        if i[8] != " " and i[10] != " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                             "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                             "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                             "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                             "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
+                                                             "CLASSIFICATORGROUPS-" + classif_1[0][4] : classif_1[0][3],
+                                                             "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
+                                                             "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                        elif i[8] != " " and i[10] == " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
+                                                                 "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
+                                                                 "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                        elif i[8] == " " and i[10] != " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
+                                                                 "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                        elif i[8] == " " and i[10] == " ":
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
+                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Status": "rsActive", "PRICETYPES-3": i[4],
+                                                                 "genKIT_NAME": i[21]}).text
+                            tree = ET.ElementTree(RK7Query)
+                            # print(ET.tostring(RK7Query, encoding='unicode', method='xml'))
+                            cur.close()
+                            cur_1.close()
+                            cur_2.close()
+                            cur_3.close()
+                            xml_send_string_create_item = ET.tostring(RK7Query, encoding='UTF-8', method='xml')
+                            ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
+                            urllib3.disable_warnings()
+                            response_GUID = requests.get(ip_string, data=xml_send_string_create_item,
+                                                         auth=(self.user_name, self.password), verify=False)
+                            logger_my_functions.debug(response_GUID.content)
+                            parsed_response = ET.fromstring(response_GUID.content)
+                            for item in parsed_response.findall("."):
+                                attr_of_item_node = item.attrib
+                                if attr_of_item_node.get("Status") == "Ok":
+                                    ok_count += 1
+                                else:
+                                    error_count += 1
+                    l_ist_dishes.append(i[1])
+                else:
+                    l_ist_dishes.append(i[1])
+                    pass
         print("ok_count_dish: " + str(ok_count))
         print("error_count_dish: " + str(error_count))
 """
