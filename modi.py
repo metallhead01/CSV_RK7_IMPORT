@@ -37,9 +37,9 @@ class Modi:
                                                      'RefName="MODIGROUPS" IgnoreEnums="1" ' \
                                                      'WithChildItems="2" WithMacroProp="1" MacroPropTags="1" ' \
                                                      'OnlyActive="1" PropMask="items.(Ident,Code,GUIDString,Name,AltName,MainParentIdent,NumInGroup,RIChildItems.(ItemIdent))"/></RK7Query>'
-                ip_string = 'https://' + "192.168.45.49" + ":" + "16662" + '/rk7api/v0/xmlinterface.xml'
+                ip_string = 'https://' + self.ip_address + ":" + self.port + '/rk7api/v0/xmlinterface.xml'
                 urllib3.disable_warnings()
-                response = requests.get(ip_string, data=xml_classifications_request_string, auth=("UCS", "1"),
+                response = requests.get(ip_string, data=xml_classifications_request_string, auth=(self.user_name, self.password),
                                         verify=False)
                 parsed_element_list = ET.fromstring(response.content)
                 for item in parsed_element_list.findall("./RK7Reference/Items/Item"):

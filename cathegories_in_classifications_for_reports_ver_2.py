@@ -31,8 +31,6 @@ class CathegoriesInClassifications:
         urllib3.disable_warnings()
         response = requests.get(ip_string, data=xml_classifications_create_string, auth=(self.user_name, self.password),verify=False)
         logging.debug(response.content)
-        #ok_count = 0
-        #error_count = 0
         def classif_create(a, b, g, class_id):
             ok_count = 0
             error_count = 0
