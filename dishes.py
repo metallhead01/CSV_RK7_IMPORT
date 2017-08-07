@@ -51,7 +51,8 @@ class Dishes:
                 attr_of_item_node_class = (item_class.attrib)
                 cur = db.cursor()
                 cur.execute ('''INSERT INTO %s (Name, GUID, Ident, MainParentIdent) VALUES (?, ?, ?, ?)''' % (reference),
-                             (attr_of_item_node_class.get("Name"), attr_of_item_node_class.get("GUIDString"), attr_of_item_node_class.get("Ident"), attr_of_item_node_class.get("MainParentIdent")))
+                             (attr_of_item_node_class.get("Name"), attr_of_item_node_class.get("GUIDString"),
+                              attr_of_item_node_class.get("Ident"), attr_of_item_node_class.get("MainParentIdent")))
 
             cur.close()
             db.commit()
@@ -130,14 +131,14 @@ class Dishes:
                                 price = str(int(float(i[4]))*100)
                             else:
                                 price = "0"
-                            ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
-                                                             "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                             "Code": i[2], "Name": i[1], "AltName": i[3],
+                            ET.SubElement(Items, "Item", attrib={"MainParentIdent" : catheg[0][2],
+                                                             "GUIDString" : '{' + str(uuid.uuid4()) + '}',
+                                                             "Code": i[2], "Name" : i[1], "AltName" : i[3],
                                                              "Status": "rsActive", "PRICETYPES-3" : price,
-                                                             "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
+                                                             "CLASSIFICATORGROUPS-" + classif[0][4] : classif[0][3],
                                                              "CLASSIFICATORGROUPS-" + classif_1[0][4] : classif_1[0][3],
-                                                             "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                             "TaxDishType":"2", "genKIT_NAME": i[21]}).text
+                                                             "CLASSIFICATORGROUPS-" + service[0][4] : service[0][3],
+                                                             "TaxDishType" : "2", "genKIT_NAME" : i[21]}).text
                             cur.close()
                             cur_1.close()
                             cur_2.close()
@@ -150,11 +151,11 @@ class Dishes:
                                 price = "0"
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
-                                                                 "Status": "rsActive", "PRICETYPES-3" : price,
-                                                                 "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
-                                                                 "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
-                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
+                                                                 "Code": i[2], "Name" : i[1], "AltName" : i[3],
+                                                                 "Status" : "rsActive", "PRICETYPES-3" : price,
+                                                                 "CLASSIFICATORGROUPS-" + classif[0][4] : classif[0][3],
+                                                                 "CLASSIFICATORGROUPS-" + service[0][4] : service[0][3],
+                                                                 "TaxDishType" :"2", "genKIT_NAME" : i[21]}).text
                             cur.close()
                             cur_1.close()
                             cur_2.close()
@@ -167,7 +168,7 @@ class Dishes:
                                 price = "0"
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Code": i[2], "Name": i[1], "AltName" : i[3],
                                                                  "Status": "rsActive", "PRICETYPES-3" : price,
                                                                  "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
                                                                  "TaxDishType":"2", "genKIT_NAME": i[21]}).text
@@ -183,7 +184,7 @@ class Dishes:
                                 price = "0"
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Code": i[2], "Name": i[1], "AltName" : i[3],
                                                                  "Status": "rsActive", "PRICETYPES-3" : price,
                                                                  "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             cur.close()
@@ -216,11 +217,11 @@ class Dishes:
                                 price = "0"
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                              "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                             "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                             "Code": i[2], "Name"  i[1], "AltName": i[3],
                                                              "Status": "rsActive", "PRICETYPES-3" : price,
-                                                             "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
+                                                             "CLASSIFICATORGROUPS-" + classif[0][4] : classif[0][3],
                                                              "CLASSIFICATORGROUPS-" + classif_1[0][4] : classif_1[0][3],
-                                                             "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
+                                                             "CLASSIFICATORGROUPS-" + service[0][4] : service[0][3],
                                                              "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             cur.close()
                             cur_1.close()
@@ -234,10 +235,10 @@ class Dishes:
                                 price = "0"
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Code": i[2], "Name": i[1], "AltName" : i[3],
                                                                  "Status": "rsActive", "PRICETYPES-3" : price,
-                                                                 "CLASSIFICATORGROUPS-" + classif[0][4]: classif[0][3],
-                                                                 "CLASSIFICATORGROUPS-" + service[0][4]: service[0][3],
+                                                                 "CLASSIFICATORGROUPS-" + classif[0][4] : classif[0][3],
+                                                                 "CLASSIFICATORGROUPS-" + service[0][4] : service[0][3],
                                                                  "TaxDishType":"2", "genKIT_NAME": i[21]}).text
                             cur.close()
                             cur_1.close()
@@ -251,10 +252,10 @@ class Dishes:
                                 price = "0"
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
                                                                  "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "Code": i[2], "Name": i[1], "AltName" : i[3],
                                                                  "Status": "rsActive", "PRICETYPES-3" : price,
                                                                  "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
-                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType":"2", "genKIT_NAME" : i[21]}).text
                             cur.close()
                             cur_1.close()
                             cur_2.close()
@@ -341,7 +342,7 @@ class Dishes:
                                                                  "Code": i[2], "Name": i[1], "AltName": i[3],
                                                                  "Status": "rsActive", "PRICETYPES-3" : price,
                                                                  "CLASSIFICATORGROUPS-" + classif_1[0][4]: classif_1[0][3],
-                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType" : "2", "genKIT_NAME": i[21]}).text
                             cur.close()
                             cur_1.close()
                             cur_2.close()
@@ -353,10 +354,10 @@ class Dishes:
                             else:
                                 price = "0"
                             ET.SubElement(Items, "Item", attrib={"MainParentIdent": catheg[0][2],
-                                                                 "GUIDString": '{' + str(uuid.uuid4()) + '}',
-                                                                 "Code": i[2], "Name": i[1], "AltName": i[3],
+                                                                 "GUIDString" : '{' + str(uuid.uuid4()) + '}',
+                                                                 "Code" : i[2], "Name" : i[1], "AltName" : i[3],
                                                                  "Status": "rsActive", "PRICETYPES-3" : price,
-                                                                 "TaxDishType":"2", "genKIT_NAME": i[21]}).text
+                                                                 "TaxDishType" : "2", "genKIT_NAME" : i[21]}).text
                             cur.close()
                             cur_1.close()
                             cur_2.close()
